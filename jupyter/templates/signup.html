@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    
+    
+</head>
+<body>
+    <div class="signup-box">
+        <a  href="{{url_for('index')}}"><img src="{{url_for('static',filename='/images/home.png')}}" alt="home" class="homeimage"></a>
+        <h2 style="color: red;font-size: 20px;">Sign Up</h2>
+        <form id="signupForm" action="{{ url_for('signup') }}" onsubmit="return validateSignupForm()" method="POST">
+            <div class="textbox">
+                <i class="fas fa-user"></i>
+                <input type="text" placeholder="Username" id="username" name="username">
+                <span id="error_username" class="error"></span>
+            </div>
+            <div class="textbox">
+                <i class="fas fa-envelope"></i>
+                <input type="email" placeholder="Email" id="email" name="email">
+                <span id="error_email" class="error"></span>
+            </div>
+            <div class="textbox">
+                <i class="fas fa-lock"></i>
+                <input type="password" placeholder="Password" id="password" name="password">
+                <span id="error_password" class="error"></span>
+            </div>
+            <div class="textbox">
+                <i class="fas fa-lock"></i>
+                <input type="password" placeholder="Confirm Password" id="confirm-password" name="confirmPassword">
+                <span id="error_confirm_password" class="error"></span>
+            </div>
+            <input type="submit" class="btn" value="Sign Up">
+            <p class="login-text">Already have an account? <a href="/login">Login</a></p>
+        </form>
+       
+    </div>
+
+    <script>
+        function validateSignupForm() {
+            let username = document.getElementById("username").value.trim();
+            let email = document.getElementById("email").value.trim();
+            let password = document.getElementById("password").value;
+            let confirmPassword = document.getElementById("confirm-password").value;
+            let isValid = true;
+
+            // Clear previous errors
+            document.querySelectorAll('.error').forEach(el => el.innerText = '');
+            document.querySelectorAll('input').forEach(el => el.style.border = 'none');
+
+            // Validate Username
+            if (username === "") {
+                document.getElementById("error_username").innerText = "Enter username";
+                document.getElementById("username").style.border = "1px solid red";
+                isValid = false;
+            } else {
+                document.getElementById("username").style.border = "3px solid green";
+            }
+
+            // Validate Email
+            if (email === "") {
+                document.getElementById("error_email").innerText = "Enter email";
+                document.getElementById("email").style.border = "1px solid red";
+                isValid = false;
+            } else if (!/^\S+@\S+\.\S+$/.test(email)) {
+                document.getElementById("error_email").innerText = "Invalid email format";
+                document.getElementById("email").style.border = "1px solid red";
+                isValid = false;
+            } else {
+                document.getElementById("email").style.border = "3px solid green";
+            }
+
+            // Validate Password
+            if (password === "") {
+                document.getElementById("error_password").innerText = "Enter password";
+                document.getElementById("password").style.border = "1px solid red";
+                isValid = false;
+            } else {
+                document.getElementById("password").style.border = "3px solid green";
+            }
+
+            // Validate Confirm Password
+            if (confirmPassword === "") {
+                document.getElementById("error_confirm_password").innerText = "Confirm your password";
+                document.getElementById("confirm-password").style.border = "1px solid red";
+                isValid = false;
+            } else if (password !== confirmPassword) {
+                document.getElementById("error_confirm_password").innerText = "Passwords do not match";
+                document.getElementById("confirm-password").style.border = "1px solid red";
+                isValid = false;
+            } else {
+                document.getElementById("confirm-password").style.border = "3px solid green";
+            }
+
+            return isValid;
+        }
+    </script>
+
+    <style>
+       
+
+        body {
+            background-color: #5f0fb3;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        
+
+        .signup-box {
+            width: 350px;
+            padding: 40px 30px;
+            background-color: #fff;
+            text-align: center;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .signup-box h2 {
+            margin-bottom: 30px;
+            font-size: 24px;
+            font-weight: normal;
+        }
+
+        .textbox {
+            position: relative;
+            margin-bottom: 20px;
+            width: 100%;
+        }
+
+        .textbox i {
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #777;
+        }
+
+        .textbox input {
+            width: calc(100% - 20px);
+            padding: 10px 10px 10px 40px;
+            background-color: #f0f0f0;
+            border: none;
+            outline: none;
+            border-radius: 5px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        .homeimage
+        {
+            width: 40px; 
+            height: 40px; 
+   
+        }
+        .btn {
+            width: 100%;
+            background-color: #f44336;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            color: white;
+            border-radius: 5px;
+            margin-top: 10px;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #e53935;
+        }
+
+        .login-text {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #777;
+        }
+
+        .login-text a {
+            color: #f44336;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .login-text a:hover {
+            text-decoration: underline;
+        }
+
+        .error {
+            color: red;
+            font-size: 12px;
+            margin-top: 5px;
+            display: block;
+            text-align: left;
+        }
+    </style>
+</body>
+</html>

@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laptop Price Predictor</title>
+    
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+</head>
+<body>
+
+    <!-- <header>
+        <h1>Dashboard</h1>
+    </header> -->
+    <div class="container">
+        <div class="sidebar">
+            <h2>User Dashboard</h2>
+            <ul>
+                <li><a href="{{url_for('dashboard')}}">Dashboard</a></li>
+                <li><a href="{{url_for('prediction_history')}}">Prediction history</a></li>
+                <li><a href="{{url_for('logout')}}">Logout</a></li>
+            </ul>
+        </div>
+        <div class="main-content">
+            <form action="{{ url_for('dashboard') }}" method="post">
+                <h2>Laptop Price Predictor 💻</h2>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="company">Brand:</label>
+                        <select name="company" id="company">
+                            {% for company in companies %}
+                            <option value="{{ company }}">{{ company }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+    
+                    <div class="form-group">
+                        <label for="type">Type:</label>
+                        <select name="type" id="type">
+                            {% for type in types %}
+                            <option value="{{ type }}">{{ type }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+    
+                    <div class="form-group">
+                        <label for="ram">Ram (in GB):</label>
+                        <select name="ram" id="ram">
+                            <option value="2">2</option>
+                            <option value="4">4</option>
+                            <option value="8">8</option>
+                            <option value="16">16</option>
+                            <option value="32">32</option>
+                        </select>
+                    </div>
+                </div>
+    
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="weight">Weight (kg):</label>
+                        <input type="number" name="weight" id="weight" step="0.01">
+                        <span id="weightError" class="error"></span>
+                    </div>
+    
+                    <div class="form-group">
+                        <label for="touchscreen">Touchscreen:</label>
+                        <select name="touchscreen" id="touchscreen">
+                            <option value="No">No</option>
+                            <option value="Yes">Yes</option>
+                        </select>
+                    </div>
+    
+                    <div class="form-group">
+                        <label for="ips">IPS Display:</label>
+                        <select name="ips" id="ips">
+                            <option value="No">No</option>
+                            <option value="Yes">Yes</option>
+                        </select>
+                    </div>
+                </div>
+    
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="screen_size">Screen Size (Inches):</label>
+                        <input type="number" name="screen_size" id="screen_size" step="0.1">
+                        <span id="screenSizeError" class="error"></span>
+                    </div>
+    
+                    <div class="form-group">
+                        <label for="resolution">Resolution:</label>
+                        <select name="resolution" id="resolution">
+                            <option value="1920x1080">1920x1080</option>
+                            <option value="1366x768">1366x768</option>
+                            <option value="1600x900">1600x900</option>
+                            <option value="3840x2160">3840x2160</option>
+                            <option value="3200x1800">3200x1800</option>
+                            <option value="2880x1800">2880x1800</option>
+                            <option value="2560x1600">2560x1600</option>
+                            <option value="2560x1440">2560x1440</option>
+                            <option value="2304x1440">2304x1440</option>
+                        </select>
+                    </div>
+    
+                    <div class="form-group">
+                        <label for="cpu">CPU Brand:</label>
+                        <select name="cpu" id="cpu">
+                            {% for cpu in cpus %}
+                            <option value="{{ cpu }}">{{ cpu }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+    
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="HDD">HDD (GB):</label>
+                        <select name="HDD" id="HDD">
+                            <option value="0">0</option>
+                            <option value="128">128</option>
+                            <option value="256">256</option>
+                            <option value="512">512</option>
+                            <option value="1024">1024</option>
+                            <option value="2048">2048</option>
+                        </select>
+                    </div>
+    
+                    <div class="form-group">
+                        <label for="SSD">SSD (GB):</label>
+                        <select name="SSD" id="SSD">
+                            <option value="0">0</option>
+                            <option value="8">8</option>
+                            <option value="128">128</option>
+                            <option value="256">256</option>
+                            <option value="512">512</option>
+                            <option value="1024">1024</option>
+                        </select>
+                    </div>
+    
+                    <div class="form-group">
+                        <label for="gpu">GPU Brand:</label>
+                        <select name="gpu" id="gpu">
+                            {% for gpu in gpus %}
+                            <option value="{{ gpu }}">{{ gpu }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+    
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="os">OS Type:</label>
+                        <select name="os" id="os">
+                            {% for os in oss %}
+                            <option value="{{ os }}">{{ os }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+    
+                <input type="submit" value="Predict Price">
+                <div class="prediction">
+                    {% if predicted_price %}
+                    <h2>The Predicted Price of Laptop is INR <p style="color: crimson;">{{ predicted_price }}</p></h2>
+                    {% endif %}
+                </div>
+            </form>
+        </div>
+
+            </form>
+        </div>
+    </div>
+
+    <!-- Place the script at the end of the body -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var form = document.querySelector('form');
+
+            form.addEventListener('submit', function (event) {
+                var screenSizeInput = document.getElementById('screen_size');
+                var screenSizeError = document.getElementById('screenSizeError');
+                var weightInput = document.getElementById('weight');
+                var weightError = document.getElementById('weightError');
+
+                var isValid = true;
+
+                // Validate Screen Size
+                if (screenSizeInput.value <= 0) {
+                    event.preventDefault(); // Prevent form submission
+                    screenSizeError.textContent = "Screen size cannot be zero. Recommended range is from 11 to 17 inches.";
+                    isValid = false;
+                } else {
+                    screenSizeError.textContent = ""; // Clear the error message if valid
+                }
+
+                // Validate Weight
+                var weightValue = parseFloat(weightInput.value);
+                if (isNaN(weightValue) || weightValue <= 0) {
+                    event.preventDefault(); // Prevent form submission
+                    weightError.textContent = "Weight must be a positive number.";
+                    isValid = false;
+                } else {
+                    weightError.textContent = ""; // Clear the error message if valid
+                }
+
+                return isValid;
+            });
+
+            // Reset form on page load
+            form.reset();
+        });
+    </script>
+</body>
+<style>
+    body {
+    font-family: Arial, sans-serif;
+    background-image: url('static/images/dashboardImg.jpg');
+    background-size: cover; 
+    background-position: center;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+</style>
+</html>

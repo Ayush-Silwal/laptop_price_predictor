@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Form</title>
+    
+</head>
+<body>
+    <div class="login-box">
+        <a  href="{{url_for('index')}}"><img width="30px" height="30px"src="{{url_for('static',filename='/images/home.png')}}" alt="home" class="homeimage"></a>
+        <h1>Login</h1>
+        <form name="loginForm" action="{{ url_for('login') }}" onsubmit="return validateLoginForm()" method="POST">
+            <div class="textbox">
+                <i class="fas fa-user"></i>
+                <input type="text" placeholder="Username" name="username" id="username">
+                <span id="error_username" class="error"></span>
+            </div>
+            <div class="textbox">
+                <i class="fas fa-lock"></i>
+                <input type="password" placeholder="Password" name="password" id="password">
+                <span id="error_password" class="error"></span>
+            </div>
+            <input type="submit" class="btn" value="LOGIN">
+            <p class="signup-text">Not registered? <a href="/signup">Sign Up</a></p>
+        </form>
+    </div>
+
+    <script>
+        function validateLoginForm() {
+            let username = document.forms["loginForm"]["username"].value.trim();
+            let password = document.forms["loginForm"]["password"].value.trim();
+            let isValid = true;
+
+            if (username == "") {
+                document.getElementById("error_username").innerText = "Enter username";
+                document.getElementById("username").style.border = "1px solid red";
+                isValid = false;
+            } else {
+                document.getElementById("error_username").innerText = "";
+                document.getElementById("username").style.border = "3px solid green";
+            }
+
+            if (password == "") {
+                document.getElementById("error_password").innerText = "Enter password";
+                document.getElementById("password").style.border = "1px solid red";
+                isValid = false;
+            } else {
+                document.getElementById("error_password").innerText = "";
+                document.getElementById("password").style.border = "3px solid green";
+            }
+
+            return isValid;
+        }
+    </script>
+
+    
+
+    <style>
+        body {
+            background-color: #7ed36d;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .login-box {
+            width: 320px;
+            padding: 40px 30px;
+            background-color: #fff;
+            text-align: center;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .textbox {
+            position: relative;
+            margin-bottom: 30px;
+            width: 100%;
+        }
+
+        .textbox i {
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #777;
+        }
+
+        .textbox input {
+            width: calc(100% - 20px);
+            padding: 10px 10px 10px 40px;
+            background-color: #f0f0f0;
+            border: none;
+            outline: none;
+            border-radius: 5px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+
+        .textbox input:focus {
+            border-color: #4caf50;
+        }
+
+        .btn {
+            width: 100%;
+            background-color: #4caf50;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            color: white;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #45a049;
+        }
+
+        .signup-text {
+            margin-top: 20px;
+            color: #777;
+            font-size: 14px;
+        }
+
+        .signup-text a {
+            color: #4caf50;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .signup-text a:hover {
+            text-decoration: underline;
+        }
+
+        .error {
+            color: red;
+            font-size: 12px;
+            margin-top: 5px;
+            display: block;
+            text-align: left;
+        }
+    </style>
+</body>
+</html>

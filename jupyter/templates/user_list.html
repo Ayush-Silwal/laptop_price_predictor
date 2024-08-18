@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User List</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin-dashboard.css') }}">
+</head>
+<body>
+    <header class="top">
+        <div class="logo">
+            <img src="{{ url_for('static', filename='images/admin logo.jpg') }}" alt="Laptop Price Predictor Logo">
+        </div>
+        <h1>User List</h1>
+    </header>
+    <div class="container">
+        <div class="sidebar">
+            <h2>Menu</h2>
+            <ul>
+                <li><a href="{{ url_for('admindashboard') }}"><img src="{{ url_for('static', filename='images/dashboard1.png') }}" alt="Dashboard Icon" width="25" height="25"> Dashboard</a></li>
+                <li><a href="{{ url_for('user_list') }}"><img src="{{ url_for('static', filename='images/profile.png') }}" alt="profile Icon" width="25" height="25"> User List</a></li>
+                <li><a href="{{ url_for('user_prediction') }}"><img src="{{ url_for('static', filename='images/history.png') }}" alt="profile Icon" width="25" height="25"> User prediction</a></li>
+                <li><a href="{{ url_for('admin_login') }}" onclick="return confirm('Are you sure you want to logout?')"><img src="{{ url_for('static', filename='images/logout.png') }}" alt="logout Icon" width="25" height="25"> Logout</a></li>
+            </ul>
+        </div>
+        <div class="content">
+            <h2>User List</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Username</th>
+                        <th>Email</th>
+                        <th>Details</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                    {% for user in users %}
+                    <tr>
+                        <td>{{ user['uid'] }}</td>
+                        <td>{{ user['username'] }}</td>
+                        <td>{{ user['email'] }}</td>
+                        <td><a href="{{ url_for('user_prediction', user_id=user['uid']) }}">View</a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

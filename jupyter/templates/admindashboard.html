@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin-dashboard.css') }}">
+</head>
+<body>
+    <header class="top">
+        <div class="logo">
+            <img src="{{ url_for('static', filename='images/admin logo.jpg') }}" alt="Laptop Price Predictor Logo">
+        </div>
+        <h1>Admin Dashboard</h1>
+    </header>
+    <div class="container">
+        <div class="sidebar">
+            <h2>Menu</h2>
+            <ul>
+                <li><a href="{{ url_for('admindashboard') }}"><img src="{{ url_for('static', filename='images/dashboard1.png') }}" alt="Dashboard Icon" width="25" height="25"> Dashboard</a></li>
+                <li><a href="{{ url_for('user_list') }}"><img src="{{ url_for('static', filename='images/profile.png') }}" alt="profile Icon" width="25" height="25"> User List</a></li>
+                <li><a href="{{ url_for('user_prediction') }}"><img src="{{ url_for('static', filename='images/history.png') }}" alt="profile Icon" width="25" height="25"> User prediction</a></li>
+                <li><a href="{{ url_for('admin_login') }}" onclick="return confirm('Are you sure you want to logout?')"><img src="{{ url_for('static', filename='images/logout.png') }}" alt="logout Icon" width="25" height="25"> Logout</a></li>
+            </ul>
+        </div>
+        <div class="content">
+            <h2>Welcome to the Admin Dashboard</h2>
+            <p>Here is the total number of users and predictions</p>
+            <div class="dashboard">
+                <a href="{{ url_for('user_list') }}">
+                    <div class="card blue">
+                        <h2>User List</h2>
+                        <h3>Total: {{ users|length }}</h3>
+                    </div>
+                </a>
+                <a href="{{ url_for('user_prediction') }}">
+                    <div class="card red">
+                        <h2>Prediction History</h2>
+                        <h3>Total: {{ predictions|length }}</h3>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

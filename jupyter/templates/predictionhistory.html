@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laptop Price Predictor</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <h2>User Dashboard</h2>
+            
+            <ul>
+                <li><a href="{{url_for('dashboard')}}">Dashboard</a></li>
+                <li><a href="{{url_for('prediction_history')}}">Prediction history</a></li>
+                <li><a href="{{url_for('logout') }}">Logout</a></li>
+            </ul>
+        </div>
+        <div class="content">
+            <h2>Prediction History</h2>
+            
+            {% if history %}
+            <table border="1px solid black">
+                <thead>
+                    <tr>
+                        <th>Company</th>
+                        <th>Type</th>
+                        <th>RAM</th>
+                        <th>Weight</th>
+                        <th>Touchscreen</th>
+                        <th>IPS</th>
+                        <th>Screen Size</th>
+                        <th>Resolution</th>
+                        <th>CPU</th>
+                        <th>HDD</th>
+                        <th>SSD</th>
+                        <th>GPU</th>
+                        <th>OS</th>
+                        <th>Predicted Price</th>
+                        <th>Date & Time</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for prediction in history %}
+                    <tr>
+                        <td>{{ prediction.company }}</td>
+                        <td>{{ prediction.type }}</td>
+                        <td>{{ prediction.ram }} GB</td>
+                        <td>{{ prediction.weight }} kg</td>
+                        <td>{{ 'Yes' if prediction.touchscreen else 'No' }}</td>
+                        <td>{{ 'Yes' if prediction.ips else 'No' }}</td>
+                        <td>{{ prediction.screen_size }} inch</td>
+                        <td>{{ prediction.resolution }}</td>
+                        <td>{{ prediction.cpu }}</td>
+                        <td>{{ prediction.hdd }} GB</td>
+                        <td>{{ prediction.ssd }} GB</td>
+                        <td>{{ prediction.gpu }}</td>
+                        <td>{{ prediction.os }}</td>
+                        <td>{{ prediction.predicted_price }}</td>
+                        <td>{{ prediction.created_at }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <p>No predictions found.</p>
+            {% endif %}
+        </div>
+    </div>
+</body>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        color: #333;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+    }
+    .container {
+        display: flex;
+        height: 100%;
+    }
+    .sidebar {
+    background-color: rgba(11, 11, 14, 0.7);
+    width: 20%;
+   
+    padding: 20px;
+    color: white;
+    height: 100vh;
+    box-sizing: border-box;
+}
+
+.sidebar h2 {
+    margin-top: 0;
+}
+
+.sidebar ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.sidebar ul li {
+    margin: 10px 0;
+}
+
+.sidebar ul li a {
+    color: white;
+    text-decoration: none;
+    padding: 10px;
+    display: block;
+    border-radius: 4px;
+}
+
+.sidebar ul li a:hover {
+    background-color: #575757;
+}
+    .content {
+        flex-grow: 1;
+        padding: 15px;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    th, td {
+        border: 1px solid #ddd;
+        padding: 8px;
+    }
+    th {
+        background-color: #f2f2f2;
+    }
+</style>
+</html>

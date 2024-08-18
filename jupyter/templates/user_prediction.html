@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Prediction</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin-dashboard.css') }}">
+</head>
+<body>
+    <header class="top">
+        <div class="logo">
+            <img src="{{ url_for('static', filename='images/admin logo.jpg') }}" alt="Laptop Price Predictor Logo">
+        </div>
+        <h1>User Prediction</h1>
+    </header>
+    <div class="container">
+        <div class="sidebar">
+            <h2>Menu</h2>
+            <ul>
+                <li><a href="{{ url_for('admindashboard') }}"><img src="{{ url_for('static', filename='images/dashboard1.png') }}" alt="Dashboard Icon" width="25" height="25"> Dashboard</a></li>
+                <li><a href="{{ url_for('user_list') }}"><img src="{{ url_for('static', filename='images/profile.png') }}" alt="profile Icon" width="25" height="25"> User List</a></li>
+                <li><a href="{{ url_for('user_prediction') }}"><img src="{{ url_for('static', filename='images/history.png') }}" alt="profile Icon" width="25" height="25"> User prediction</a></li>
+                <li><a href="{{ url_for('admin_login') }}" onclick="return confirm('Are you sure you want to logout?')"><img src="{{ url_for('static', filename='images/logout.png') }}" alt="logout Icon" width="25" height="25"> Logout</a></li>
+            </ul>
+        </div>
+        <div class="content">
+            <h2>User Prediction History</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Company</th>
+                        <th>Type</th>
+                        <th>RAM</th>
+                        <th>Weight</th>
+                        <th>Touchscreen</th>
+                        <th>IPS</th>
+                        <th>Screen Size</th>
+                        <th>Resolution</th>
+                        <th>CPU</th>
+                        <th>HDD</th>
+                        <th>SSD</th>
+                        <th>GPU</th>
+                        <th>OS</th>
+                        <th>Predicted Price</th>
+                        <th>Created At</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for prediction in predictions %}
+                    <tr>
+                        <td>{{ prediction['pid'] }}</td>
+                        <td>{{ prediction['company'] }}</td>
+                        <td>{{ prediction['type'] }}</td>
+                        <td>{{ prediction['ram'] }}</td>
+                        <td>{{ prediction['weight'] }}</td>
+                        <td>{{ prediction['touchscreen'] }}</td>
+                        <td>{{ prediction['ips'] }}</td>
+                        <td>{{ prediction['screen_size'] }}</td>
+                        <td>{{ prediction['resolution'] }}</td>
+                        <td>{{ prediction['cpu'] }}</td>
+                        <td>{{ prediction['hdd'] }}</td>
+                        <td>{{ prediction['ssd'] }}</td>
+                        <td>{{ prediction['gpu'] }}</td>
+                        <td>{{ prediction['os'] }}</td>
+                        <td>{{ prediction['predicted_price'] }}</td>
+                        <td>{{ prediction['created_at'] }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
